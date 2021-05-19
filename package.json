@@ -1,0 +1,29 @@
+{
+  "name": "bolsaformacaobe",
+  "version": "1.0.0",
+  "description": "BE project to update date into Bolsa-Formação Panel. Also to manage KPIs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleksvp2017/bolsaformacaobe.git"
+  },
+  "author": "Aleksander Velozo Pascoal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aleksvp2017/bolsaformacaobe/issues"
+  },
+  "homepage": "https://github.com/aleksvp2017/bolsaformacaobe#readme",
+  "dependencies": {
+    "body": "^5.1.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^4.1.1",
+    "express": "^4.17.1",
+    "express-load": "^1.1.16",
+    "nodemon": "^2.0.7",
+    "parser": "^0.1.4",
+    "pg": "^8.6.0"
+  }
+}
