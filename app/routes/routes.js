@@ -1,4 +1,5 @@
 const Autenticacao = require('../services/seguranca/autenticacao.js')
+const Helper = require('../services/helper/helper.js')
 
 var routes = [
     //nome do componente tem que bater com o nome do recurso 

@@ -6,6 +6,11 @@ app.use(express.json())
 
 var Rotas = require('./app/routes/routes.js')
 
+//Middleware para checar existência do token e autorização a cada requisição
+var Permissao = require('./app/services/seguranca/permissao.js')
+app.use(Permissao.verificaToken)
+app.use(Permissao.autorizacao)
+
 //Monta rotas
 Rotas.routes.map(rota => {
     //caso de upload de arquivos, por exemplo

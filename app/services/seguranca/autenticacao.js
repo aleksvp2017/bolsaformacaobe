@@ -4,17 +4,23 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
 })
 const Usuarios = require('../usuario/usuarios.js')
+const Permissao = require('./permissao.js')
+const Auditoria = require('../auditoria/auditoria.js')
 
-
-
+const validarParametros  = function(req){
+    if (!req.body.usuario || !req.body.usuario.email || !req.body.usuario.senha){
+        return 'Dados para autenticação não encontrados na requisição'
+    }
+}
 
 const login = async function (req, res, next) {
     console.log("Fazendo login")
-    if (!req.body.usuario || !req.body.usuario.email || !req.body.senha){
-        res.status(401).json({ error: 'Dados para autenticação não encontrados na requisição'})
+
+    var parametrosInvalidos = validarParametros(req)
+    if (parametrosInvalidos){
+        res.status(401).json({ error: parametrosInvalidos})
         return
     }
-
 
     var usuario = await Usuarios.validar(req.body.usuario.email, req.body.usuario.senha)
     console.log("Validado")
@@ -23,22 +29,22 @@ const login = async function (req, res, next) {
             res.status(401).json({ error: 'Usuário não ativo, por gentileza, aguarde a ativação.' })
             return
         }
-        /*var jwt = require('jsonwebtoken')
+        var jwt = require('jsonwebtoken')
         let token = jwt.sign({
             name: usuario.nome,
             email: usuario.email
         }, process.env.SECRET, {
             expiresIn: 86400 //24h
         })
-        var menu = await Permissao.obterMenu(usuario.email)*/
+        var menu = await Permissao.obterMenu(usuario.email)
         res.status(200).json({ auth: true, usuario: { ...usuario, senha: '', token: token, menu: menu }})
-        //Auditoria.log(usuario.email, 'usuario.login', usuario.email, null)
+        Auditoria.log(usuario.email, 'usuario.login', usuario.email, null)
         next()
     }
     else {
         let msgErro = 'E-mail ou senha incorretos'
         res.status(401).json({ error: msgErro })
-        //Auditoria.log(usuario.email, 'usuario.login', usuario.email, msgErro)
+        Auditoria.log(usuario.email, 'usuario.login', usuario.email, msgErro)
     }
 }
 
