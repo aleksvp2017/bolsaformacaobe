@@ -20,11 +20,18 @@
     "body": "^5.1.0",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.1",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "csv-stream": "^0.2.0",
     "express": "^4.17.1",
+    "express-bearer-token": "^2.4.0",
     "express-load": "^1.1.16",
+    "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.6.3",
     "nodemon": "^2.0.7",
     "parser": "^0.1.4",
-    "pg": "^8.6.0"
+    "pg": "^8.6.0",
+    "request": "^2.88.2"
   }
 }

@@ -35,7 +35,8 @@ const pool = new Pool({
 
 const menu = async (req, res) => {
     try{
-        var usuario = req.query.usuario.email
+        //como é uma rota segura, ao verificar a presença do token, já coloco o usuário na app
+        var usuario = req.app.usuario
         var itensMenu = await obterMenu(usuario)
         res.status(200).json( {menu: itensMenu})
     }
@@ -103,6 +104,7 @@ const isTemPermissao = async (usuario, uri, metodo) => {
     var permissoes = await (await pool.query(sql, [usuario, metodo, uri])).rows
     return (permissoes && permissoes.length > 0)
 }
+
 
 module.exports = {
     menu, verificaToken, autorizacao, obterMenu
