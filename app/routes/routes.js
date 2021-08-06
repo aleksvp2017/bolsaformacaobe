@@ -3,6 +3,7 @@ const Auditoria = require('../services/auditoria/auditoria.js')
 const Helper = require('../services/helper/helper.js')
 const Usuario = require('../services/usuario/usuarios.js')
 const Permissao = require('../services/seguranca/permissao.js')
+const Carga = require('../services/carga/carga.js')
 
 var routes = [
     //nome do componente tem que bater com o nome do recurso 
@@ -20,6 +21,10 @@ var routes = [
     { uri: '/usuarios', metodohttp: 'get', componente: Usuario, metodo: 'listar', requerAutenticacao: true},    
     //AUDITORIA
     { uri: '/auditoria', metodohttp: 'get', componente: Auditoria, metodo: 'listar', requerAutenticacao: true},
+    //CARGA
+    { uri: '/carga', metodohttp: 'post', componente: Carga, metodo: 'iniciar', requerAutenticacao: true},
+    { uri: '/carga/etapasRealizadas', metodohttp: 'post', componente: Carga, metodo: 'listar', requerAutenticacao: true},
+    { uri: '/carga/etapas', metodohttp: 'get', componente: Carga, metodo: 'listarEtapas', requerAutenticacao: true}
 ];
 
 function isRotaRequerAutenticacao(uri, metodohttp) {
@@ -28,7 +33,7 @@ function isRotaRequerAutenticacao(uri, metodohttp) {
 }
 
 function obterRota(uri, metodohttp) {
-    console.log('Chegou aqui:', uri)
+    //console.log('Chegou aqui:', uri)
     var rota = {}
     routes.map(route => {
         let uriExp = new RegExp(route.uri)
@@ -38,7 +43,7 @@ function obterRota(uri, metodohttp) {
             rota = route
         }
     })
-    console.log('Rota:', rota)
+    //console.log('Rota:', rota)
     return rota
 }
 

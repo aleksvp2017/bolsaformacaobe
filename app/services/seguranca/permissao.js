@@ -24,6 +24,8 @@ routes.js na UI
 routesjs no BE
 	- De acordo com a uri e método http, mapeia o componente, o método respectivo e 
 	se requer ou não autenticação;
+
+Autenticação (verificaToken) e Autorização para o BE são chamados no app.js - esquema de middleware    
 */
 
 var Helper = require('../helper/helper.js')

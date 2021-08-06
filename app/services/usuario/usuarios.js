@@ -153,7 +153,7 @@ const recuperarSenha = async function (req, res, next) {
             res.status(401).json({ error: `Error ao gravar dados ${erroAoGravar}` })
         }
         else {
-            Mensagem.enviarEmail('Redefinição de senha', `Sua nova senha no Vagas é ${senhaGerada}`, req.body.email).then((mensagem) => {
+            Mensagem.enviarEmail('Redefinição de senha', `Sua nova senha no Painel de Fomento da EPT é ${senhaGerada}`, req.body.email).then((mensagem) => {
                 res.status(200).json({ mensagem: 'Nova senha enviada com sucesso' })
                 Auditoria.log(req.body.email, 'usuario.recuperarsenha', req.body.email, null)
                 next()
