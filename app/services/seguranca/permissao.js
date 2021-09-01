@@ -61,6 +61,7 @@ const obterMenu = async(usuario) => {
 const verificaToken = (req, res, next) => {
     var Rotas = require('../../routes/routes.js')
     if (Rotas.isRotaRequerAutenticacao(req.originalUrl, req.method)){
+        console.log('Rota requer autenticação')
         var jwt = require('jsonwebtoken')
         jwt.verify(req.token, process.env.SECRET, async (err, decoded) => {
             if (err) {
