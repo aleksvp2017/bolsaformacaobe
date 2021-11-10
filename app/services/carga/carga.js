@@ -21,8 +21,8 @@ const iniciar = (req, res, next) => {
 }
 
 const montarConfiguracoes = function (configuracoes){
-    var config = `'(` + configuracoes.diretorioDados + `,`+ configuracoes.ano + `,` + configuracoes.dataPadrao + `,` +  
-        configuracoes.periodoPactuacao + `,` + configuracoes.dataPadrao + `)'::paineldaf.configuracoescarga`
+    var config = `'(` + configuracoes.diretorioDados + `,`+ configuracoes.ano + `,` + configuracoes.dataDados + `,` +  
+        configuracoes.periodoPactuacao + `,` + configuracoes.sei + `,` + configuracoes.ted + `,` + configuracoes.incluiColunasExtras + `)'::paineldaf.configuracoescarga`
     
     return config
 }
@@ -56,8 +56,9 @@ const buscar = async (apenasMaisRecente) => {
         var sql = `select a.codigo, to_char(datahora, 'HH24:MI:SS DD/MM/YYYY') as datahora, descricao, erro from paineldaf.atualizacaodados a 
                     inner join paineldaf.etapacarga e on e.codigo = a.etapacodigo `
         if (apenasMaisRecente){
-            sql += ` where a.codigo = (select max(codigo) from paineldaf.atualizacaodados)`
+            sql += ` where a.codigo = (select max(codigo) from paineldaf.atualizacaodados) `
         }                    
+        sql += ` order by a.codigo`
         var dadosAtualizados = await (await pool.query(sql)).rows
         return dadosAtualizados
     }
